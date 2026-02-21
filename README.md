@@ -24,29 +24,6 @@ APIは以下のようなJSONを返します：
     }
   ]
 }
+```
 
-#  仕組み
-​GitHub Actions: 5分ごとに update.js を実行します。
-​Data Fetching: queue-times.com から最新の待ち時間を取得します。
-​Translation: 英語名を日本語名に変換し、データを整形します。
-​Caching: 結果を data.json としてこのリポジトリに保存（コミット）します。
-​Hosting: GitHub Pages を通じて、静的ファイルとしてAPI公開されます。
-​⚠️ 注意事項
-​本データは queue-times.com の提供データに基づいています。公式アプリの値と僅かな差がある場合があります。
-​パークの運用時間外は、すべての施設が「休止中（Closed）」として表示されます。
-​<!-- end list -->
-
----
-
-### リポジトリの最終的なフォルダ構成
-
-GitHubのリポジトリは以下のようになっていれば完璧です。
-
-```text
-.github/
-  └── workflows/
-      └── update.yml    (GitHub Actionsの設定)
-update.js               (データ取得プログラム)
-index.html              (検証用画面)
-README.md               (このリポジトリの説明)
-data.json               (自動生成されるデータファイル)
+データ提供元: 本アプリの待ち時間データは Queue-Times.com (https://queue-times.com/) を利用しています。
