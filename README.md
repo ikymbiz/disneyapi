@@ -3,7 +3,7 @@
 GitHub Actions を利用して、東京ディズニーランド（TDL）と東京ディズニーシー（TDS）の待ち時間を5分おきに取得し、JSON形式で提供するプロジェクトです。
 
 ## 🚀 API Endpoint (JSON)
-`https://<あなたのユーザー名>.github.io/disneyapi/data.json`
+`https://ikymbiz.github.io/disneyapi/data.json`
 
 ## 🛠 データ構造
 APIは以下のようなJSONを返します：
