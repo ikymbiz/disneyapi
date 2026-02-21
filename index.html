@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>東京ディズニーシー 待ち時間一覧</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f0f4f8; padding: 20px; }
+        h1 { color: #004d99; text-align: center; }
+        .container { max-width: 600px; margin: 0 auto; background: white; padding: 20px; border-radius: 10px; shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .ride-item { display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid #eee; }
+        .ride-name { font-weight: bold; flex: 1; }
+        .wait-time { color: #e67e22; font-weight: bold; width: 80px; text-align: right; }
+        .status-closed { color: #95a5a6; }
+        .loading { text-align: center; color: #666; }
+    </style>
+</head>
+<body>
+
+    <h1>TDS 待ち時間</h1>
+    <div class="container" id="output">
+        <p class="loading">データを読み込み中...</p>
+    </div>
+
+    <script>
+        // 東京ディズニーシーのIDは 275
+        const API_URL = "https://queue-times.com/parks/275/queue_times.json";
+        // ブラウザの制限(CORS)を回避するためのプロキシ（開発・テスト用）
+        const PROXY_URL = "https://corsproxy.io/?";
+
+        async function fetchWaitTimes() {
+            try {
+                const response = await fetch(PROXY_URL + encodeURIComponent(API_URL));
+                const data = await response.json();
+                
+                let htmlContent = "";
+
+                // 各エリア（lands）ごとにループ
+                data.lands.forEach(land => {
+                    land.rides.forEach(ride => {
+                        const waitTime = ride.is_open ? `${ride.wait_time} 分` : "休止中";
+                        const statusClass = ride.is_open ? "" : "status-closed";
+                        
+                        htmlContent += `
+                            <div class="ride-item">
+                                <span class="ride-name">${ride.name}</span>
+                                <span class="wait-time ${statusClass}">${waitTime}</span>
+                            </div>
+                        `;
+                    });
+                });
+
+                document.getElementById('output').innerHTML = htmlContent;
+
+            } catch (error) {
+                document.getElementById('output').innerHTML = "<p>データの取得に失敗しました。時間をおいて試してください。</p>";
+                console.error("Error:", error);
+            }
+        }
+
+        // 実行
+        fetchWaitTimes();
+        // 5分ごとに自動更新
+        setInterval(fetchWaitTimes, 300000);
+    </script>
+</body>
+</html>
