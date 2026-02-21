@@ -3,121 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TDS 待ち時間一覧 (日本語版)</title>
+    <title>Disney API Debugger</title>
     <style>
-        body { font-family: "Helvetica Neue", Arial, sans-serif; margin: 0; background: #eef2f7; color: #333; }
-        .header { background: #004488; color: white; padding: 20px; text-align: center; position: sticky; top: 0; z-index: 10; }
-        .container { max-width: 600px; margin: 20px auto; padding: 0 15px; }
-        .info-bar { background: #fff; padding: 10px; border-radius: 8px; margin-bottom: 15px; display: flex; justify-content: space-between; font-size: 13px; color: #666; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        .ride-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid #f0f0f0; transition: background 0.2s; }
-        .ride-item:last-child { border-bottom: none; }
-        .ride-item:hover { background: #f9fbff; }
-        .name-container { flex: 1; padding-right: 10px; }
-        .ride-name-ja { font-weight: bold; font-size: 16px; display: block; margin-bottom: 2px; }
-        .ride-name-en { font-size: 11px; color: #999; }
-        .wait-time-box { text-align: right; min-width: 80px; }
-        .time-value { font-size: 20px; font-weight: 900; color: #e67e22; }
-        .time-unit { font-size: 12px; color: #e67e22; margin-left: 2px; }
-        .status-closed { color: #95a5a6; font-weight: bold; }
-        .loading { text-align: center; padding: 40px; color: #666; }
+        :root { --tdl-color: #ed1651; --tds-color: #004488; }
+        body { font-family: sans-serif; margin: 0; background: #f4f7f9; color: #333; }
+        .header { background: #333; color: white; padding: 1rem; text-align: center; }
+        .controls { display: flex; justify-content: center; gap: 10px; padding: 20px; flex-wrap: wrap; background: white; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .btn { padding: 10px 20px; border: none; border-radius: 20px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .btn-park { background: #eee; color: #666; }
+        .btn-park.active[data-park="TDL"] { background: var(--tdl-color); color: white; }
+        .btn-park.active[data-park="TDS"] { background: var(--tds-color); color: white; }
+        .btn-lang { background: #666; color: white; }
+        .info { text-align: center; font-size: 0.8rem; color: #888; margin: 10px 0; }
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        .grid { display: grid; gap: 10px; }
+        .card { background: white; padding: 15px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .wait-time { font-size: 1.5rem; font-weight: 900; color: #e67e22; }
+        .unit { font-size: 0.8rem; margin-left: 3px; }
+        .closed { color: #ccc; font-weight: bold; }
+        .park-tag { font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; margin-bottom: 5px; display: inline-block; color: white; }
+        .tag-tdl { background: var(--tdl-color); }
+        .tag-tds { background: var(--tds-color); }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1 style="margin:0; font-size: 20px;">東京ディズニーシー 待ち時間</h1>
-    </div>
+<div class="header">
+    <h1>Disney Parks API Checker</h1>
+</div>
 
-    <div class="container">
-        <div class="info-bar">
-            <span id="update-time">読み込み中...</span>
-            <span id="count-display">-- 件の施設</span>
-        </div>
+<div class="controls">
+    <button class="btn btn-park active" data-park="TDL">LAND</button>
+    <button class="btn btn-park" data-park="TDS">SEA</button>
+    <button class="btn btn-lang" id="toggle-lang">English / 日本語</button>
+</div>
 
-        <div id="output" class="card">
-            <p class="loading">最新のデータを取得しています...</p>
-        </div>
-    </div>
+<div class="info">
+    <span id="last-updated">Loading...</span>
+</div>
+
+<div class="container">
+    <div id="output" class="grid"></div>
+</div>
 
 <script>
-// --- 名前変換辞書 (主要なもの) ---
-const nameMap = {
-    "Soaring: Fantastic Flight": "ソアリン：ファンタスティック・フライト",
-    "Toy Story Mania!": "トイ・ストーリー・マニア！",
-    "Tower of Terror": "タワー・オブ・テラー",
-    "Journey to the Center of the Earth": "センター・オブ・ジ・アース",
-    "Indiana Jones® Adventure: Temple of the Crystal Skull": "インディ・ジョーンズ®：クリスタルスカルの魔宮",
-    "Raging Spirits": "レイジングスピリッツ",
-    "20,000 Leagues Under the Sea": "海底2万マイル",
-    "Turtle Talk": "タートル・トーク",
-    "Nemo & Friends SeaRider": "ニモ＆フレンズ・シーライダー",
-    "Aquatopia": "アクアトピア",
-    "The Magic Lamp Theater": "マジックランプシアター",
-    "Sindbad's Storybook Voyage": "シンドバッド・ストーリーブック・ヴォヤッジ",
-    "Jasmine's Flying Carpets": "ジャスミンのフライングカーペット",
-    "Flounder's Flying Fish Coaster": "フランダーのフライングフィッシュコースター",
-    "Scuttle's Scooters": "スカットルのスクーター",
-    "Jumpin' Jellyfish": "ジャンピン・ジェリーフィッシュ",
-    "Blowfish Balloon Race": "ブローフィッシュ・バルーンレース",
-    "Venetian Gondolas": "ヴェネツィアン・ゴンドラ",
-    "DisneySea Electric Railway": "ディズニーシー・エレクトリックレールウェイ",
-    "DisneySea Transit Steamer Line": "ディズニーシー・トランジットスチーマーライン",
-    "Anna and Elsa's Frozen Journey": "アナとエルサのフローズンジャーニー",
-    "Peter Pan's Never Land Adventure": "ピーターパンのネバーランドアドベンチャー",
-    "Fairy Tinker Bell's Busy Buggies": "フェアリー・ティンカーベルのビジーバギー",
-    "Rapunzel's Lantern Festival": "ラプンツェルのランタンフェスティバル",
-    "Mickey & Friends Greeting Trails": "ミッキー＆フレンズ・グリーティングトレイル"
-};
+    let currentPark = "TDL";
+    let currentLang = "ja"; // 'ja' or 'en'
+    let allRides = [];
 
-async function fetchWaitTimes() {
-    const targetUrl = "https://queue-times.com/parks/275/queue_times.json";
-    const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`;
+    const output = document.getElementById('output');
+    const lastUpdated = document.getElementById('last-updated');
 
-    try {
-        const response = await fetch(proxyUrl);
-        const rawData = await response.json();
-        const data = JSON.parse(rawData.contents);
-        
-        let allRides = [];
-        data.lands.forEach(land => {
-            allRides = allRides.concat(land.rides);
-        });
-
-        // 待ち時間順にソート
-        allRides.sort((a, b) => b.wait_time - a.wait_time);
-
-        let htmlContent = "";
-        allRides.forEach(ride => {
-            const nameJa = nameMap[ride.name] || ride.name; // 辞書になければ英語名
-            const waitDisplay = ride.is_open 
-                ? `<span class="time-value">${ride.wait_time}</span><span class="time-unit">分</span>` 
-                : `<span class="status-closed">休止中</span>`;
-
-            htmlContent += `
-                <div class="ride-item">
-                    <div class="name-container">
-                        <span class="ride-name-ja">${nameJa}</span>
-                        <span class="ride-name-en">${ride.name}</span>
-                    </div>
-                    <div class="wait-time-box">${waitDisplay}</div>
-                </div>
-            `;
-        });
-
-        document.getElementById('output').innerHTML = htmlContent;
-        document.getElementById('count-display').innerText = `${allRides.length} 件の施設を表示中`;
-        document.getElementById('update-time').innerText = `更新: ${new Date().toLocaleTimeString()}`;
-
-    } catch (error) {
-        document.getElementById('output').innerHTML = "<p style='padding:20px;'>取得エラーが発生しました。</p>";
-        console.error(error);
+    // データ取得
+    async function loadData() {
+        try {
+            const res = await fetch('./data.json?t=' + Date.now()); // キャッシュ回避
+            const data = await res.json();
+            allRides = data.rides;
+            lastUpdated.innerText = `最終更新: ${new Date(data.updated_at).toLocaleString()}`;
+            render();
+        } catch (e) {
+            output.innerHTML = "<p>データが見つかりません。GitHub Actionsが完了するまでお待ちください。</p>";
+        }
     }
-}
 
-fetchWaitTimes();
-// 3分ごとに自動更新
-setInterval(fetchWaitTimes, 180000);
+    function render() {
+        const filtered = allRides.filter(r => r.park === currentPark);
+        // 待ち時間順にソート
+        filtered.sort((a, b) => b.wait_time - a.wait_time);
+
+        output.innerHTML = filtered.map(ride => `
+            <div class="card">
+                <div>
+                    <span class="park-tag ${ride.park === 'TDL' ? 'tag-tdl' : 'tag-tds'}">${ride.park}</span>
+                    <div style="font-weight:bold">${currentLang === 'ja' ? ride.name_ja : ride.name_en}</div>
+                </div>
+                <div class="wait-time">
+                    ${ride.is_open ? `${ride.wait_time}<span class="unit">min</span>` : '<span class="closed">Closed</span>'}
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // イベントリスナー
+    document.querySelectorAll('.btn-park').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            document.querySelectorAll('.btn-park').forEach(b => b.classList.remove('active'));
+            e.target.classList.add('active');
+            currentPark = e.target.dataset.park;
+            render();
+        });
+    });
+
+    document.getElementById('toggle-lang').addEventListener('click', () => {
+        currentLang = currentLang === 'ja' ? 'en' : 'ja';
+        render();
+    });
+
+    loadData();
 </script>
 </body>
 </html>
