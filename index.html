@@ -3,271 +3,502 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Disney Wait Times</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <title>GitHub Deployer PWA</title>
+    <meta name="theme-color" content="#2da44e">
+    <meta name="application-name" content="GitHub Deployer">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="GitHub Deployer">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
     <style>
         :root {
-            /* 公式アプリを意識したカラーパレット */
-            --disney-blue: #0064b7; /* メインの濃い青 */
-            --bg-light: #f5f7fa;    /* 全体の背景色 */
-            --text-dark: #2c3e50;   /* メインテキスト色 */
-            --text-gray: #7f8c8d;   /* サブテキスト色 */
-            --tdl-color: #e84393;   /* ランドのテーマカラー（上品なピンク） */
-            --tds-color: #00a8ff;   /* シーのテーマカラー（さわやかな水色） */
+            --bg: #f6f8fa; --card-bg: #ffffff; --text: #24292f;
+            --border: #d0d7de; --primary: #2da44e; --input-bg: #ffffff;
+            --log-bg: #24292f; --log-text: #adbac7; --accent: #0969da;
+            --guide-bg: #f0f7ff; --error: #cf222e; --warning: #fff8c5;
         }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 15px; }
+        .card { background: var(--card-bg); padding: 20px; border-radius: 12px; border: 1px solid var(--border); max-width: 600px; margin: auto; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .setup-link { background: var(--warning); color: #24292f; padding: 12px; border-radius: 8px; font-size: 0.85rem; margin-bottom: 20px; border: 1px solid #d4a017; text-align: center; }
+        .setup-link a { color: var(--accent); font-weight: bold; }
 
-        body {
-            font-family: 'Noto Sans JP', sans-serif;
-            margin: 0;
-            background: var(--bg-light);
-            color: var(--text-dark);
-            -webkit-font-smoothing: antialiased; /* フォントを滑らかに */
-        }
+        label { display: block; margin-top: 15px; font-weight: bold; font-size: 0.9rem; }
+        input, textarea, select { width: 100%; padding: 12px; margin-top: 5px; border: 1px solid var(--border); border-radius: 8px; box-sizing: border-box; font-size: 16px; background: var(--input-bg); color: var(--text); }
 
-        .header {
-            background: var(--disney-blue);
-            color: white;
-            padding: 15px;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+        .repo-select-container { position: relative; margin-top: 5px; }
+        .dropdown-list {
+            position: absolute; width: 100%; max-height: 280px; overflow-y: auto;
+            background: white; border: 1px solid var(--border); border-radius: 8px;
+            z-index: 1000; display: none; margin-top: 4px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
-        .header h1 {
-            margin: 0;
-            font-size: 1.2rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
+        .dropdown-item { padding: 10px 15px; cursor: pointer; border-bottom: 1px solid #f1f1f1; display: flex; flex-direction: column; }
+        .dropdown-item:hover, .dropdown-item.active { background: #f0f7ff; }
+        .dropdown-item .repo-title { font-weight: bold; display: flex; align-items: center; gap: 6px; }
+        .dropdown-item .repo-meta { font-size: 0.75rem; color: #6e7781; margin-top: 2px; }
 
-        /* コントロールエリア（ボタンなど） */
-        .controls-container {
-            background: white;
-            padding: 15px 20px;
-            border-bottom: 1px solid #eee;
+        /* リポジトリ・Pagesリンク表示エリア */
+        .selected-repo-link { 
+            display: none; margin-top: 8px; font-size: 0.8rem; 
+            padding: 10px 12px; background: #f6f8fa; border-radius: 6px;
+            border: 1px solid var(--border); flex-direction: column; gap: 5px;
         }
-        .controls {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        .btn {
-            padding: 10px 24px;
-            border: 1px solid #ddd;
-            background: white;
-            color: var(--text-gray);
-            border-radius: 30px; /* 丸みを強く */
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
-            flex: 1; /* ボタンの幅を均等に */
-            max-width: 120px;
-            text-align: center;
-        }
-        /* アクティブ時のスタイル */
-        .btn-park.active[data-park="TDL"] { background: var(--tdl-color); color: white; border-color: var(--tdl-color); box-shadow: 0 4px 10px rgba(232, 67, 147, 0.3); }
-        .btn-park.active[data-park="TDS"] { background: var(--tds-color); color: white; border-color: var(--tds-color); box-shadow: 0 4px 10px rgba(0, 168, 255, 0.3); }
-        .btn-lang {
-            flex: 0 0 auto; /* 言語切替ボタンは幅を固定 */
-            background: #f0f0f0;
-            color: var(--text-dark);
-        }
+        .selected-repo-link a { color: var(--accent); text-decoration: none; font-weight: bold; }
+        .selected-repo-link a:hover { text-decoration: underline; }
+        .pages-found { color: var(--primary) !important; }
 
-        .info-bar {
-            text-align: center;
-            font-size: 0.75rem;
-            color: var(--text-gray);
-            padding: 10px 0;
-        }
+        .status-tag { font-size: 0.7rem; border: 1px solid var(--border); padding: 1px 5px; border-radius: 10px; color: #6e7781; }
+        .file-item { border: 1px solid var(--border); padding: 15px; border-radius: 8px; margin-top: 10px; position: relative; }
+        .remove-btn { position: absolute; top: 10px; right: 10px; color: var(--error); cursor: pointer; border: none; background: none; font-size: 0.8rem; font-weight: bold; }
+        .add-btn { background: none; border: 1px dashed var(--border); color: var(--text); width: 100%; padding: 10px; margin-top: 10px; border-radius: 8px; cursor: pointer; }
 
-        /* メインコンテンツエリア */
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 15px 30px;
-        }
-        .grid {
-            display: grid;
-            gap: 12px;
-        }
+        button.main-btn { background: var(--primary); color: white; border: none; padding: 16px; border-radius: 8px; cursor: pointer; width: 100%; font-weight: bold; font-size: 1.1rem; margin-top: 25px; }
+        #progressContainer { display: none; margin-top: 20px; text-align: center; }
+        .spinner { border: 4px solid rgba(0,0,0,0.1); border-left-color: var(--primary); border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 0 auto 10px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        #log { margin-top: 20px; font-size: 0.75rem; background: var(--log-bg); color: var(--log-text); padding: 12px; border-radius: 8px; height: 120px; overflow-y: auto; font-family: monospace; }
+        .result-box { margin-top: 20px; padding: 20px; border-radius: 10px; display: none; border: 2px solid var(--primary); text-align: center; }
+        .result-link { display: block; margin: 10px 0; padding: 10px; background: #f0f7ff; border-radius: 6px; text-decoration: none; color: var(--accent); font-weight: bold; border: 1px solid var(--border); }
+        .upload-box { border: 2px dashed var(--border); border-radius: 10px; padding: 15px; margin-top: 18px; background: #fff; }
+        .upload-box input[type="file"] { padding: 10px; }
+        .hint { font-size: 0.8rem; color: #57606a; margin-top: 6px; line-height: 1.5; }
+        .empty-hint { font-size: 0.85rem; color: #57606a; background: #f6f8fa; border: 1px solid var(--border); border-radius: 8px; padding: 12px; margin-top: 12px; }
 
-        /* アトラクションカードのデザイン */
-        .card {
-            background: white;
-            padding: 18px 20px;
-            border-radius: 16px; /* 大きな角丸 */
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* 柔らかい影 */
-            border: 1px solid rgba(0,0,0,0.03);
-            transition: transform 0.2s;
-        }
-        .card:active {
-            transform: scale(0.98); /* タップ時のエフェクト */
-        }
-        
-        .ride-name {
-            font-weight: 700;
-            font-size: 1rem;
-            margin-bottom: 4px;
-            line-height: 1.4;
-        }
-        .park-label {
-            font-size: 0.65rem;
-            color: var(--text-gray);
-            display: flex;
-            align-items: center;
-        }
-        .park-dot {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            margin-right: 5px;
-        }
-        .dot-tdl { background: var(--tdl-color); }
-        .dot-tds { background: var(--tds-color); }
+        .install-box { background: #f0f7ff; border: 1px solid var(--border); border-radius: 10px; padding: 12px; margin-bottom: 15px; font-size: 0.85rem; line-height: 1.5; }
+        .install-btn { background: var(--accent); color: white; border: none; padding: 10px 12px; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 8px; width: 100%; display: none; }
+        .install-note { color: #57606a; margin-top: 6px; }
 
-        /* 待ち時間表示のデザイン */
-        .wait-time-box {
-            text-align: right;
-            min-width: 80px;
-        }
-        .wait-time {
-            font-size: 2rem; /* 数字を大きく */
-            font-weight: 900;
-            color: var(--disney-blue); /* 青色で強調 */
-            line-height: 1;
-        }
-        .unit {
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--disney-blue);
-            margin-left: 2px;
-        }
-        .closed-status {
-            color: #bdc3c7;
-            font-weight: 700;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-        }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
 </head>
 <body>
 
-<div class="header">
-    <h1>TOKYO DISNEY RESORT</h1>
-</div>
+<div class="card">
+    <div class="header"><h2>🌐 GitHub Deployer PWA</h2></div>
 
-<div class="controls-container">
-    <div class="controls">
-        <button class="btn btn-park active" data-park="TDL">ランド</button>
-        <button class="btn btn-park" data-park="TDS">シー</button>
-        <button class="btn btn-lang" id="toggle-lang">日/英</button>
-    </div>
-    <div class="info-bar">
-        <span id="last-updated">データを読み込んでいます...</span>
-    </div>
-</div>
 
-<div class="container">
-    <div id="output" class="grid"></div>
+    <div class="install-box">
+        📱 このツールはPWA対応です。GitHub PagesなどHTTPS上で開くと、ブラウザからアプリとしてインストールできます。
+        <button id="installBtn" class="install-btn" type="button">アプリとしてインストール</button>
+        <div id="installNote" class="install-note">Chrome/Edge: アドレスバーのインストールアイコン、iPhone/iPad: 共有 →「ホーム画面に追加」も使えます。</div>
+    </div>
+
+    <div class="setup-link">
+        🔑 <a href="https://github.com/settings/tokens/new?scopes=repo,workflow&description=WebDeployTool" target="_blank">トークンを新規発行する</a>
+    </div>
+
+    <label>GitHub Access Token:</label>
+    <input type="password" id="token" placeholder="ghp_xxxx" oninput="saveToken(); fetchRepoList()">
+
+    <label>リポジトリ名 (検索または新規入力):</label>
+    <div class="repo-select-container">
+        <input type="text" id="repoName" placeholder="my-website" autocomplete="off" oninput="filterRepos()" onclick="showDropdown()">
+        <div id="repoDropdown" class="dropdown-list"></div>
+        
+        <div id="repoLinkArea" class="selected-repo-link">
+            <div>📁 <a id="selectedRepoUrl" href="#" target="_blank">リポジトリを別タブで開く</a></div>
+            <div id="existingPagesArea" style="display: none; margin-top: 4px; border-top: 1px solid var(--border); pt: 5px;">
+                🚀 <a id="existingPagesUrl" href="#" target="_blank" class="pages-found">公開済みサイトを表示</a>
+            </div>
+        </div>
+    </div>
+
+    <label id="visibilityLabel">公開設定 (新規作成時):</label>
+    <select id="repoVisibility">
+        <option value="false">Public (公開)</option>
+        <option value="true">Private (非公開)</option>
+    </select>
+
+    <details>
+        <summary>🌐 独自ドメイン設定 (任意)</summary>
+        <div style="padding: 15px;">
+            <label style="margin-top:0">ドメイン名</label>
+            <input type="text" id="customDomain" placeholder="example.com">
+        </div>
+    </details>
+
+
+    <div class="upload-box">
+        <label style="margin-top:0">ファイル / ZIP を選択:</label>
+        <input type="file" id="filePicker" multiple accept=".html,.htm,.css,.js,.json,.txt,.md,.svg,.xml,.png,.jpg,.jpeg,.gif,.webp,.ico,.pdf,.zip" onchange="handleFilePicker(event)">
+        <div class="hint">ZIPを選ぶと中身を自動で展開します。画像などのバイナリファイルもGitHubへアップロードできます。</div>
+    </div>
+
+    <div id="fileContainer"></div>
+    <div id="emptyHint" class="empty-hint">まだファイルは追加されていません。ファイル/ZIPを選択するとここに一覧が表示されます。</div>
+    <button class="add-btn" onclick="addFileRow(); updateEmptyHint();">+ 手入力でファイルを追加</button>
+
+    <button id="execBtn" class="main-btn" onclick="run()">デプロイ開始</button>
+
+    <div id="progressContainer">
+        <div class="spinner"></div>
+        <div id="waitMsg">反映待ち... あと <span id="timer">60</span> 秒</div>
+    </div>
+    <div id="log"></div>
+    <div id="resultBox" class="result-box">
+        <b>✅ 完了しました！</b><br>
+        <a id="siteUrl" class="result-link" target="_blank">🔗 サイトを確認</a>
+        <a id="repoUrl" class="result-link" target="_blank" style="background: #f6f8fa; color: #24292f;">📁 リポジトリを見る</a>
+    </div>
 </div>
 
 <script>
-    let currentPark = "TDL";
-    let currentLang = "ja";
-    let allRides = [];
+    let allRepos = [];
+    let currentUsername = "";
 
-    const output = document.getElementById('output');
-    const lastUpdated = document.getElementById('last-updated');
+    window.onload = () => {
+        initPWA();
+        const savedToken = localStorage.getItem('gh_token');
+        if(savedToken) {
+            document.getElementById('token').value = savedToken;
+            fetchRepoList();
+        }
+    };
 
-    async function loadData() {
+
+    let deferredInstallPrompt = null;
+
+    function initPWA() {
+        const installBtn = document.getElementById('installBtn');
+        const installNote = document.getElementById('installNote');
+
+        if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+            navigator.serviceWorker.register('./sw.js').then(() => {
+                addLog('PWA: Service Worker 登録完了');
+            }).catch(err => {
+                console.warn('Service Worker registration failed:', err);
+            });
+        } else if (installNote) {
+            installNote.innerText = 'PWAインストールはHTTPSまたはlocalhostで開いた時に有効です。GitHub Pagesに置いてから開いてください。';
+        }
+
+        window.addEventListener('beforeinstallprompt', (event) => {
+            event.preventDefault();
+            deferredInstallPrompt = event;
+            if (installBtn) installBtn.style.display = 'block';
+        });
+
+        if (installBtn) {
+            installBtn.addEventListener('click', async () => {
+                if (!deferredInstallPrompt) {
+                    alert('このブラウザではまだインストール準備ができていません。HTTPS上で開くか、ブラウザのメニューから「アプリをインストール」を選んでください。');
+                    return;
+                }
+                deferredInstallPrompt.prompt();
+                await deferredInstallPrompt.userChoice;
+                deferredInstallPrompt = null;
+                installBtn.style.display = 'none';
+            });
+        }
+
+        window.addEventListener('appinstalled', () => {
+            addLog('PWA: アプリとしてインストールされました。');
+            if (installBtn) installBtn.style.display = 'none';
+        });
+    }
+
+    function saveToken() { localStorage.setItem('gh_token', document.getElementById('token').value); }
+
+    async function fetchRepoList() {
+        const token = document.getElementById('token').value.trim();
+        if (!token || token.length < 10) return;
+
         try {
-            // キャッシュを回避して最新のdata.jsonを取得
-            const res = await fetch('./data.json?t=' + Date.now());
-            if (!res.ok) throw new Error("Data not found");
-            const data = await res.json();
-            allRides = data.rides;
+            const headers = { 'Authorization': `Bearer ${token}` };
             
-            const updateTime = new Date(data.updated_at);
-            lastUpdated.innerText = `最終更新: ${updateTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
-            render();
-        } catch (e) {
-            output.innerHTML = `
-                <div style="text-align:center; padding: 40px; color: #999;">
-                    <p>データ取得中、またはエラーが発生しました。</p>
-                    <p style="font-size:0.8rem;">GitHub Actionsの初回実行を待っている可能性があります。</p>
-                </div>`;
-            lastUpdated.innerText = "---";
+            // ユーザー名を先に取得
+            const userRes = await fetch('https://api.github.com/user', { headers });
+            if (userRes.ok) {
+                const userData = await userRes.json();
+                currentUsername = userData.login;
+            }
+
+            const res = await fetch('https://api.github.com/user/repos?sort=updated&per_page=100', { headers });
+            if (res.ok) {
+                allRepos = await res.json();
+                addLog(`${allRepos.length} 個のリポジトリを同期しました。`);
+            }
+        } catch (err) { console.error("Repo fetch error", err); }
+    }
+
+    function showDropdown() {
+        if (allRepos.length > 0) filterRepos();
+    }
+
+    function filterRepos() {
+        const input = document.getElementById('repoName').value.toLowerCase();
+        const dropdown = document.getElementById('repoDropdown');
+        dropdown.innerHTML = '';
+
+        if (input) {
+            const createNew = document.createElement('div');
+            createNew.className = 'dropdown-item';
+            createNew.innerHTML = `<div class="repo-title">✨ Create new: "${input}"</div><div class="repo-meta">新しいリポジトリを作成します</div>`;
+            createNew.onclick = () => selectRepo(input, true);
+            dropdown.appendChild(createNew);
+        }
+
+        const filtered = allRepos.filter(r => r.name.toLowerCase().includes(input));
+
+        filtered.forEach(repo => {
+            const item = document.createElement('div');
+            item.className = 'dropdown-item';
+            const timeStr = new Date(repo.updated_at).toLocaleDateString();
+            item.innerHTML = `
+                <div class="repo-title">
+                    ${repo.name} ${repo.private ? '🔒' : '🌐'}
+                    <span class="status-tag">${repo.language || 'Code'}</span>
+                </div>
+                <div class="repo-meta">Last updated: ${timeStr}</div>
+            `;
+            item.onclick = () => selectRepo(repo.name, false, repo.html_url);
+            dropdown.appendChild(item);
+        });
+
+        dropdown.style.display = (input || filtered.length > 0) ? 'block' : 'none';
+        document.getElementById('repoLinkArea').style.display = 'none';
+    }
+
+    async function selectRepo(name, isNew, url = '') {
+        const input = document.getElementById('repoName');
+        input.value = name;
+        document.getElementById('repoDropdown').style.display = 'none';
+
+        const visibility = document.getElementById('repoVisibility');
+        const vLabel = document.getElementById('visibilityLabel');
+        const linkArea = document.getElementById('repoLinkArea');
+        const linkTag = document.getElementById('selectedRepoUrl');
+        const pagesArea = document.getElementById('existingPagesArea');
+        const pagesTag = document.getElementById('existingPagesUrl');
+
+        // Pages表示のリセット
+        pagesArea.style.display = 'none';
+
+        if (!isNew) {
+            visibility.style.opacity = "0.5";
+            vLabel.innerText = "公開設定 (既存のため変更不可)";
+
+            if (url) {
+                linkArea.style.display = 'flex';
+                linkTag.href = url;
+                linkTag.innerText = `📁 リポジトリ: ${name}`;
+                
+                // Pagesの設定状況を確認
+                checkExistingPages(name, pagesArea, pagesTag);
+            }
+        } else {
+            visibility.style.opacity = "1";
+            vLabel.innerText = "公開設定 (新規作成時):";
+            linkArea.style.display = 'none';
         }
     }
 
-    function render() {
-        const filtered = allRides.filter(r => r.park === currentPark);
-        
-        // ソート: 運営中を優先し、その中で待ち時間の長い順
-        filtered.sort((a, b) => {
-            if (a.is_open !== b.is_open) return b.is_open ? 1 : -1;
-            return b.wait_time - a.wait_time;
-        });
+    async function checkExistingPages(repoName, areaEl, linkEl) {
+        const token = document.getElementById('token').value.trim();
+        if (!currentUsername || !token) return;
 
-        output.innerHTML = filtered.map(ride => {
-            const name = currentLang === 'ja' ? ride.name_ja : ride.name_en;
-            const parkLabel = ride.park === 'TDL' ? '東京ディズニーランド' : '東京ディズニーシー';
-            const dotClass = ride.park === 'TDL' ? 'dot-tdl' : 'dot-tds';
-
-            // ★★★ ここがロジック変更のポイント ★★★
-            // 開園中(is_open)かつ、待ち時間が60分以上なら 0分 と表示する
-            let waitDisplay;
-            if (ride.is_open) {
-                const displayTime = ride.wait_time >= 60 ? 0 : ride.wait_time;
-                waitDisplay = `
-                    <span class="wait-time">${displayTime}</span>
-                    <span class="unit">分</span>`;
-            } else {
-                waitDisplay = `<span class="closed-status">CLOSE</span>`;
+        try {
+            const res = await fetch(`https://api.github.com/repos/${currentUsername}/${repoName}/pages`, {
+                headers: { 'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github+json' }
+            });
+            
+            if (res.ok) {
+                const data = await res.json();
+                if (data.html_url) {
+                    areaEl.style.display = 'block';
+                    linkEl.href = data.html_url;
+                    linkEl.innerText = `🚀 公開済みサイト: ${data.html_url}`;
+                }
             }
-
-            return `
-                <div class="card">
-                    <div>
-                        <div class="ride-name">${name}</div>
-                        <div class="park-label">
-                            <span class="park-dot ${dotClass}"></span>${parkLabel}
-                        </div>
-                    </div>
-                    <div class="wait-time-box">
-                        ${waitDisplay}
-                    </div>
-                </div>
-            `;
-        }).join('');
+        } catch (err) { console.log("Pages info not found."); }
     }
 
-    // イベントリスナー設定
-    document.querySelectorAll('.btn-park').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            document.querySelectorAll('.btn-park').forEach(b => b.classList.remove('active'));
-            e.target.classList.add('active');
-            currentPark = e.target.dataset.park;
-            render();
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.repo-select-container')) {
+            document.getElementById('repoDropdown').style.display = 'none';
+        }
+    });
+
+    function escapeHtml(str) {
+        return String(str).replace(/[&<>'"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[c]));
+    }
+
+    function addFileRow(name = '', content = '', removable = true, isBinary = false) {
+        const div = document.createElement('div');
+        div.className = 'file-item';
+        div.dataset.binary = isBinary ? 'true' : 'false';
+        div.dataset.base64 = isBinary ? content : '';
+        div.innerHTML = `${removable ? '<button class="remove-btn" onclick="this.parentElement.remove(); updateEmptyHint();">削除</button>' : ''}<input type="text" class="filename" placeholder="filename.html" value="${escapeHtml(name)}"><textarea class="filecontent" rows="3" ${isBinary ? 'readonly' : ''}>${isBinary ? '[binary file: base64でアップロードします]' : escapeHtml(content)}</textarea>`;
+        document.getElementById('fileContainer').appendChild(div);
+        updateEmptyHint();
+    }
+
+
+    function updateEmptyHint() {
+        const hint = document.getElementById('emptyHint');
+        if (!hint) return;
+        hint.style.display = document.querySelectorAll('.file-item').length ? 'none' : 'block';
+    }
+
+    function normalizePath(path) {
+        return path.replace(/^\/+/, '').replace(/\\/g, '/');
+    }
+
+    function isProbablyText(filename) {
+        return /\.(html?|css|js|mjs|json|txt|md|svg|xml|yml|yaml|csv|map)$/i.test(filename);
+    }
+
+    async function fileToBase64(fileOrBlob) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(String(reader.result).split(',')[1]);
+            reader.onerror = reject;
+            reader.readAsDataURL(fileOrBlob);
         });
-    });
+    }
 
-    document.getElementById('toggle-lang').addEventListener('click', () => {
-        currentLang = currentLang === 'ja' ? 'en' : 'ja';
-        render();
-    });
+    async function blobToText(blob) {
+        return await blob.text();
+    }
 
-    // 初回ロードと定期更新（1分おきに画面だけリフレッシュ）
-    loadData();
-    setInterval(loadData, 60000);
+    async function addPickedFile(filename, blob) {
+        filename = normalizePath(filename);
+        if (!filename || filename.endsWith('/')) return;
+        if (isProbablyText(filename)) {
+            addFileRow(filename, await blobToText(blob), true, false);
+        } else {
+            addFileRow(filename, await fileToBase64(blob), true, true);
+        }
+    }
+
+    async function handleFilePicker(event) {
+        const files = Array.from(event.target.files || []);
+        if (!files.length) return;
+
+        for (const file of files) {
+            if (/\.zip$/i.test(file.name)) {
+                if (typeof JSZip === 'undefined') {
+                    alert('ZIP展開ライブラリを読み込めませんでした。インターネット接続を確認してください。');
+                    continue;
+                }
+                addLog(`ZIP展開中: ${file.name}`);
+                const zip = await JSZip.loadAsync(file);
+                const entries = Object.values(zip.files).filter(entry => !entry.dir && !entry.name.startsWith('__MACOSX/'));
+                for (const entry of entries) {
+                    const blob = await entry.async('blob');
+                    await addPickedFile(entry.name, blob);
+                }
+                addLog(`${entries.length} 個のファイルをZIPから追加しました。`);
+            } else {
+                await addPickedFile(file.name, file);
+                addLog(`ファイル追加: ${file.name}`);
+            }
+        }
+        event.target.value = '';
+    }
+
+    function addLog(msg) {
+        const log = document.getElementById('log');
+        log.innerHTML += `<div>> ${msg}</div>`;
+        log.scrollTop = log.scrollHeight;
+    }
+
+    async function run() {
+        const token = document.getElementById('token').value.replace(/[\s\u3000]/g, '');
+        const repoName = document.getElementById('repoName').value.trim();
+        const customDomain = document.getElementById('customDomain').value.trim();
+        const isPrivate = document.getElementById('repoVisibility').value === 'true';
+        const btn = document.getElementById('execBtn');
+
+        if (!token || !repoName) return alert("必須項目を入力してください");
+        if (!document.querySelectorAll('.file-item').length) return alert("アップロードするファイルを選択するか、「+ ファイルを追加」で作成してください。");
+
+        btn.disabled = true;
+        document.getElementById('resultBox').style.display = 'none';
+        document.getElementById('log').innerHTML = '';
+        const headers = { 
+            'Authorization': `Bearer ${token}`, 
+            'Accept': 'application/vnd.github+json',
+            'X-GitHub-Api-Version': '2022-11-28'
+        };
+
+        try {
+            addLog("GitHub認証中...");
+            const userRes = await fetch('https://api.github.com/user', { headers });
+            if(!userRes.ok) throw new Error("認証失敗。トークンを確認してください。");
+            const username = (await userRes.json()).login;
+
+            let checkRepo = await fetch(`https://api.github.com/repos/${username}/${repoName}`, { headers });
+            if (!checkRepo.ok) {
+                addLog(`新規リポジトリ "${repoName}" を作成します...`);
+                await fetch('https://api.github.com/user/repos', {
+                    method: 'POST', headers, body: JSON.stringify({ name: repoName, auto_init: true, private: isPrivate })
+                });
+                await new Promise(r => setTimeout(r, 2000));
+            } else {
+                addLog(`既存のリポジトリ "${repoName}" を更新します。`);
+            }
+
+            const fileItems = document.querySelectorAll('.file-item');
+            for (const item of fileItems) {
+                const name = item.querySelector('.filename').value.trim();
+                const content = item.querySelector('.filecontent').value;
+                if (!name) continue;
+
+                addLog(`転送中: ${name}`);
+                const fCheck = await fetch(`https://api.github.com/repos/${username}/${repoName}/contents/${encodeURIComponent(name).replace(/%2F/g, '/')}`, { headers });
+                const sha = fCheck.ok ? (await fCheck.json()).sha : null;
+
+                let b64;
+                if (item.dataset.binary === 'true') {
+                    b64 = item.dataset.base64;
+                } else {
+                    const uint8 = new TextEncoder().encode(content);
+                    let binary = '';
+                    const chunkSize = 0x8000;
+                    for (let i = 0; i < uint8.length; i += chunkSize) {
+                        binary += String.fromCharCode(...uint8.subarray(i, i + chunkSize));
+                    }
+                    b64 = btoa(binary);
+                }
+
+                const putRes = await fetch(`https://api.github.com/repos/${username}/${repoName}/contents/${encodeURIComponent(name).replace(/%2F/g, '/')}`, {
+                    method: 'PUT', headers,
+                    body: JSON.stringify({ message: 'Update via Deployer', content: b64, sha })
+                });
+                if (!putRes.ok) throw new Error(`${name} のアップロードに失敗しました。`);
+            }
+
+            // Pages設定 (409衝突回避のためtry-catch)
+            try {
+                addLog("Pages 設定を確認/更新中...");
+                await fetch(`https://api.github.com/repos/${username}/${repoName}/pages`, {
+                    method: 'POST', headers, body: JSON.stringify({ source: { branch: "main", path: "/" } })
+                });
+            } catch (e) { console.log("Pages already configured."); }
+
+            document.getElementById('progressContainer').style.display = 'block';
+            let sec = 60;
+            const timerInterval = setInterval(() => { 
+                document.getElementById('timer').innerText = --sec; 
+                if(sec <= 0) clearInterval(timerInterval); 
+            }, 1000);
+
+            await new Promise(r => setTimeout(r, 60000));
+
+            document.getElementById('siteUrl').href = customDomain ? `https://${customDomain}` : `https://${username}.github.io/${repoName}/`;
+            document.getElementById('repoUrl').href = `https://github.com/${username}/${repoName}`;
+            document.getElementById('resultBox').style.display = 'block';
+            addLog("✅ デプロイ完了！");
+
+        } catch (err) { 
+            addLog(`❌ エラー: ${err.message}`); 
+        } finally { 
+            btn.disabled = false; 
+            document.getElementById('progressContainer').style.display = 'none'; 
+        }
+    }
 </script>
 </body>
 </html>
