@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-05T06:17:13.008Z",
+  "updated_at": "2026-10-05T14:56:35.299Z",
   "count": 73,
   "rides": [
     {
@@ -8,15 +8,15 @@
       "name_en": "Jungle Cruise: Wildlife Expeditions",
       "wait_time": 0,
       "is_open": false,
-      "last_updated": "2026-10-05T06:17:12.846Z"
+      "last_updated": "2026-10-05T14:56:35.126Z"
     },
     {
       "park": "TDL",
       "name_ja": "カリブの海賊",
       "name_en": "Pirates of the Caribbean",
-      "wait_time": 10,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:12.846Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.126Z"
     },
     {
       "park": "TDL",
@@ -24,7 +24,7 @@
       "name_en": "Swiss Family Treehouse",
       "wait_time": 0,
       "is_open": false,
-      "last_updated": "2026-10-05T06:17:12.846Z"
+      "last_updated": "2026-10-05T14:56:35.126Z"
     },
     {
       "park": "TDL",
@@ -32,55 +32,55 @@
       "name_en": "The Enchanted Tiki Room: Stitch Presents “Aloha E Komo Mai!”",
       "wait_time": 0,
       "is_open": false,
-      "last_updated": "2026-10-05T06:17:12.846Z"
+      "last_updated": "2026-10-05T14:56:35.126Z"
     },
     {
       "park": "TDL",
       "name_ja": "ウエスタンリバー鉄道",
       "name_en": "Western River Railroad",
-      "wait_time": 30,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:12.846Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.126Z"
     },
     {
       "park": "TDL",
       "name_ja": "ビーバーブラザーズのカヌー探険",
       "name_en": "Beaver Brothers Explorer Canoes",
-      "wait_time": 30,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:12.846Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.126Z"
     },
     {
       "park": "TDL",
       "name_ja": "スプラッシュ・マウンテン",
       "name_en": "Splash Mountain",
-      "wait_time": 50,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:12.846Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.126Z"
     },
     {
       "park": "TDL",
       "name_ja": "“it's a small world”",
       "name_en": "“it's a small world”",
-      "wait_time": 15,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:12.846Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.126Z"
     },
     {
       "park": "TDL",
       "name_ja": "アリスのティーパーティー",
       "name_en": "Alice's Tea Party",
-      "wait_time": 15,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:12.846Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.126Z"
     },
     {
       "park": "TDL",
       "name_ja": "キャッスルカルーセル",
       "name_en": "Castle Carrousel",
-      "wait_time": 20,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:12.846Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.126Z"
     },
     {
       "park": "TDL",
@@ -88,7 +88,7 @@
       "name_en": "Cinderella's Fairy Tale Hall",
       "wait_time": 0,
       "is_open": false,
-      "last_updated": "2026-10-05T06:17:12.846Z"
+      "last_updated": "2026-10-05T14:56:35.126Z"
     },
     {
       "park": "TDL",
@@ -96,223 +96,223 @@
       "name_en": "Dumbo The Flying Elephant",
       "wait_time": 0,
       "is_open": false,
-      "last_updated": "2026-10-05T06:17:12.846Z"
+      "last_updated": "2026-10-05T14:56:35.126Z"
     },
     {
       "park": "TDL",
       "name_ja": "美女と野獣“魔法のものがたり”",
       "name_en": "Enchanted Tale of Beauty and the Beast",
       "wait_time": 0,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:12.846Z"
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.126Z"
     },
     {
       "park": "TDL",
       "name_ja": "Haunted Mansion “Holiday Nightmare”",
       "name_en": "Haunted Mansion “Holiday Nightmare”",
-      "wait_time": 40,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:12.846Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.126Z"
     },
     {
       "park": "TDL",
       "name_ja": "ミッキーのフィルハーマジック",
       "name_en": "Mickey's PhilharMagic",
-      "wait_time": 5,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:12.846Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.126Z"
     },
     {
       "park": "TDL",
       "name_ja": "ピーターパン空の旅",
       "name_en": "Peter Pan's Flight",
-      "wait_time": 30,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:12.846Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.126Z"
     },
     {
       "park": "TDL",
       "name_ja": "ピノキオの冒険旅行",
       "name_en": "Pinocchio's Daring Journey",
-      "wait_time": 15,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:12.846Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.126Z"
     },
     {
       "park": "TDL",
       "name_ja": "プーさんのハニーハント",
       "name_en": "Pooh's Hunny Hunt",
-      "wait_time": 70,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:12.846Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.126Z"
     },
     {
       "park": "TDL",
       "name_ja": "白雪姫と七人のこびと",
       "name_en": "Snow White's Adventures",
-      "wait_time": 20,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:12.846Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.126Z"
     },
     {
       "park": "TDL",
       "name_ja": "モンスターズ・インク“ライド＆ゴーシーク！”",
       "name_en": "Monsters, Inc. Ride & Go Seek!",
-      "wait_time": 50,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:12.846Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.126Z"
     },
     {
       "park": "TDL",
       "name_ja": "スター・ツアーズ：ザ・アドベンチャーズ・コンティニュー",
       "name_en": "Star Tours: The Adventures Continue",
-      "wait_time": 5,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:12.846Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.126Z"
     },
     {
       "park": "TDL",
       "name_ja": "スティッチ・エンカウンター",
       "name_en": "Stitch Encounter",
-      "wait_time": 10,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:12.846Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.126Z"
     },
     {
       "park": "TDL",
       "name_ja": "ベイマックスのハッピーライド",
       "name_en": "The Happy Ride with Baymax",
-      "wait_time": 50,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:12.846Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.126Z"
     },
     {
       "park": "TDL",
       "name_ja": "チップとデールのツリーハウス",
       "name_en": "Chip 'n Dale's Treehouse",
-      "wait_time": 5,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:12.846Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.126Z"
     },
     {
       "park": "TDL",
       "name_ja": "ドナルドのボート",
       "name_en": "Donald's Boat",
-      "wait_time": 5,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:12.846Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.126Z"
     },
     {
       "park": "TDL",
       "name_ja": "ガジェットのゴーコースター",
       "name_en": "Gadget's Go Coaster",
-      "wait_time": 25,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:12.846Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.126Z"
     },
     {
       "park": "TDL",
       "name_ja": "グーフィーのペイント＆プレイハウス",
       "name_en": "Goofy's Paint 'n' Play House",
-      "wait_time": 10,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:12.846Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.126Z"
     },
     {
       "park": "TDL",
       "name_ja": "ミニーの家",
       "name_en": "Minnie's House",
-      "wait_time": 10,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:12.846Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.126Z"
     },
     {
       "park": "TDL",
       "name_ja": "ロジャーラビットのカートゥーンスピン",
       "name_en": "Roger Rabbit's Car Toon Spin",
-      "wait_time": 30,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:12.846Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.126Z"
     },
     {
       "park": "TDL",
       "name_ja": "Toon Park",
       "name_en": "Toon Park",
       "wait_time": 0,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:12.846Z"
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.126Z"
     },
     {
       "park": "TDL",
       "name_ja": "ビッグサンダー・マウンテン",
       "name_en": "Big Thunder Mountain",
-      "wait_time": 40,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:12.846Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.126Z"
     },
     {
       "park": "TDL",
       "name_ja": "カントリーベア・シアター",
       "name_en": "Country Bear Theater",
-      "wait_time": 15,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:12.846Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.126Z"
     },
     {
       "park": "TDL",
       "name_ja": "蒸気船マークトウェイン号",
       "name_en": "Mark Twain Riverboat",
-      "wait_time": 10,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:12.846Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.126Z"
     },
     {
       "park": "TDL",
       "name_ja": "トムソーヤ島いかだ",
       "name_en": "Tom Sawyer Island Rafts",
-      "wait_time": 5,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:12.846Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.126Z"
     },
     {
       "park": "TDL",
       "name_ja": "ウエスタンランド・シューティングギャラリー",
       "name_en": "Westernland Shootin' Gallery",
-      "wait_time": 10,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:12.846Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.126Z"
     },
     {
       "park": "TDL",
       "name_ja": "オムニバス",
       "name_en": "Omnibus",
-      "wait_time": 5,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:12.846Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.126Z"
     },
     {
       "park": "TDL",
       "name_ja": "ペニーアーケード",
       "name_en": "Penny Arcade",
       "wait_time": 0,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:12.846Z"
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.126Z"
     },
     {
       "park": "TDS",
       "name_ja": "Big City Vehicles",
       "name_en": "Big City Vehicles",
-      "wait_time": 5,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:13.008Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.298Z"
     },
     {
       "park": "TDS",
       "name_ja": "ディズニーシー・エレクトリックレールウェイ（アメフロ）",
       "name_en": "DisneySea Electric Railway (American Waterfront)",
-      "wait_time": 20,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:13.008Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.298Z"
     },
     {
       "park": "TDS",
@@ -320,7 +320,7 @@
       "name_en": "DisneySea Transit Steamer Line (American Waterfront)",
       "wait_time": 0,
       "is_open": false,
-      "last_updated": "2026-10-05T06:17:13.008Z"
+      "last_updated": "2026-10-05T14:56:35.298Z"
     },
     {
       "park": "TDS",
@@ -328,55 +328,55 @@
       "name_en": "Tower of Terror",
       "wait_time": 0,
       "is_open": false,
-      "last_updated": "2026-10-05T06:17:13.008Z"
+      "last_updated": "2026-10-05T14:56:35.298Z"
     },
     {
       "park": "TDS",
       "name_ja": "トイ・ストーリー・マニア！",
       "name_en": "Toy Story Mania!",
-      "wait_time": 120,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:13.008Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.298Z"
     },
     {
       "park": "TDS",
       "name_ja": "タートル・トーク",
       "name_en": "Turtle Talk",
-      "wait_time": 15,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:13.008Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.298Z"
     },
     {
       "park": "TDS",
       "name_ja": "キャラバンカルーセル",
       "name_en": "Caravan Carousel",
-      "wait_time": 10,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:13.008Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.298Z"
     },
     {
       "park": "TDS",
       "name_ja": "ジャスミンのフライングカーペット",
       "name_en": "Jasmine's Flying Carpets",
-      "wait_time": 30,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:13.008Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.298Z"
     },
     {
       "park": "TDS",
       "name_ja": "シンドバッド・ストーリーブック・ヴォヤッジ",
       "name_en": "Sindbad's Storybook Voyage",
-      "wait_time": 10,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:13.008Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.298Z"
     },
     {
       "park": "TDS",
       "name_ja": "マジックランプシアター",
       "name_en": "The Magic Lamp Theater",
-      "wait_time": 15,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:13.008Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.298Z"
     },
     {
       "park": "TDS",
@@ -384,31 +384,31 @@
       "name_en": "Anna and Elsa's Frozen Journey",
       "wait_time": 0,
       "is_open": false,
-      "last_updated": "2026-10-05T06:17:13.008Z"
+      "last_updated": "2026-10-05T14:56:35.298Z"
     },
     {
       "park": "TDS",
       "name_ja": "フェアリー・ティンカーベルのビジーバギー",
       "name_en": "Fairy Tinker Bell's Busy Buggies",
-      "wait_time": 40,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:13.008Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.298Z"
     },
     {
       "park": "TDS",
       "name_ja": "ピーターパンのネバーランドアドベンチャー",
       "name_en": "Peter Pan's Never Land Adventure",
-      "wait_time": 50,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:13.008Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.298Z"
     },
     {
       "park": "TDS",
       "name_ja": "ラプンツェルのランタンフェスティバル",
       "name_en": "Rapunzel's Lantern Festival",
-      "wait_time": 70,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:13.008Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.298Z"
     },
     {
       "park": "TDS",
@@ -416,7 +416,7 @@
       "name_en": "DisneySea Transit Steamer Line (Lost River Delta)",
       "wait_time": 0,
       "is_open": false,
-      "last_updated": "2026-10-05T06:17:13.008Z"
+      "last_updated": "2026-10-05T14:56:35.298Z"
     },
     {
       "park": "TDS",
@@ -424,15 +424,15 @@
       "name_en": "Indiana Jones Adventure®: Temple of the Crystal Skull",
       "wait_time": 0,
       "is_open": false,
-      "last_updated": "2026-10-05T06:17:13.008Z"
+      "last_updated": "2026-10-05T14:56:35.299Z"
     },
     {
       "park": "TDS",
       "name_ja": "Lost River Delta (Miguel: from 1:30 p.m.)",
       "name_en": "Lost River Delta (Miguel: from 1:30 p.m.)",
-      "wait_time": 15,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:13.008Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.299Z"
     },
     {
       "park": "TDS",
@@ -440,15 +440,15 @@
       "name_en": "Lost River Delta (Miguel: until 1:00 p.m.)",
       "wait_time": 0,
       "is_open": false,
-      "last_updated": "2026-10-05T06:17:13.008Z"
+      "last_updated": "2026-10-05T14:56:35.299Z"
     },
     {
       "park": "TDS",
       "name_ja": "レイジングスピリッツ",
       "name_en": "Raging Spirits",
-      "wait_time": 70,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:13.008Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.299Z"
     },
     {
       "park": "TDS",
@@ -456,31 +456,31 @@
       "name_en": "DisneySea Transit Steamer Line (Mediterranean Harbor)",
       "wait_time": 0,
       "is_open": false,
-      "last_updated": "2026-10-05T06:17:13.008Z"
+      "last_updated": "2026-10-05T14:56:35.299Z"
     },
     {
       "park": "TDS",
       "name_ja": "Fortress Explorations",
       "name_en": "Fortress Explorations",
       "wait_time": 0,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:13.008Z"
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.299Z"
     },
     {
       "park": "TDS",
       "name_ja": "ソアリン：ファンタスティック・フライト",
       "name_en": "Soaring: Fantastic Flight",
-      "wait_time": 120,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:13.008Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.299Z"
     },
     {
       "park": "TDS",
       "name_ja": "レオナルド・チャレンジ",
       "name_en": "The Leonardo Challenge",
-      "wait_time": 5,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:13.008Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.299Z"
     },
     {
       "park": "TDS",
@@ -488,39 +488,39 @@
       "name_en": "Venetian Gondolas",
       "wait_time": 0,
       "is_open": false,
-      "last_updated": "2026-10-05T06:17:13.008Z"
+      "last_updated": "2026-10-05T14:56:35.299Z"
     },
     {
       "park": "TDS",
       "name_ja": "アリエルのプレイグラウンド",
       "name_en": "Ariel's Playground",
       "wait_time": 0,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:13.008Z"
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.299Z"
     },
     {
       "park": "TDS",
       "name_ja": "ブローフィッシュ・バルーンレース",
       "name_en": "Blowfish Balloon Race",
-      "wait_time": 25,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:13.008Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.299Z"
     },
     {
       "park": "TDS",
       "name_ja": "フランダーのフライングフィッシュコースター",
       "name_en": "Flounder's Flying Fish Coaster",
-      "wait_time": 30,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:13.008Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.299Z"
     },
     {
       "park": "TDS",
       "name_ja": "ジャンピン・ジェリーフィッシュ",
       "name_en": "Jumpin' Jellyfish",
-      "wait_time": 20,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:13.008Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.299Z"
     },
     {
       "park": "TDS",
@@ -528,39 +528,39 @@
       "name_en": "Mermaid Lagoon Theater",
       "wait_time": 0,
       "is_open": false,
-      "last_updated": "2026-10-05T06:17:13.008Z"
+      "last_updated": "2026-10-05T14:56:35.299Z"
     },
     {
       "park": "TDS",
       "name_ja": "スカットルのスクーター",
       "name_en": "Scuttle's Scooters",
-      "wait_time": 20,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:13.008Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.299Z"
     },
     {
       "park": "TDS",
       "name_ja": "ワールプール",
       "name_en": "The Whirlpool",
-      "wait_time": 25,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:13.008Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.299Z"
     },
     {
       "park": "TDS",
       "name_ja": "海底2万マイル",
       "name_en": "20,000 Leagues Under the Sea",
-      "wait_time": 20,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:13.008Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.299Z"
     },
     {
       "park": "TDS",
       "name_ja": "センター・オブ・ジ・アース",
       "name_en": "Journey to the Center of the Earth",
-      "wait_time": 140,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:13.008Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.299Z"
     },
     {
       "park": "TDS",
@@ -568,23 +568,23 @@
       "name_en": "Aquatopia",
       "wait_time": 0,
       "is_open": false,
-      "last_updated": "2026-10-05T06:17:13.008Z"
+      "last_updated": "2026-10-05T14:56:35.299Z"
     },
     {
       "park": "TDS",
       "name_ja": "ディズニーシー・エレクトリックレールウェイ（ポート）",
       "name_en": "DisneySea Electric Railway (Port Discovery)",
-      "wait_time": 10,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:13.008Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.299Z"
     },
     {
       "park": "TDS",
       "name_ja": "ニモ＆フレンズ・シーライダー",
       "name_en": "Nemo & Friends SeaRider",
-      "wait_time": 15,
-      "is_open": true,
-      "last_updated": "2026-10-05T06:17:13.008Z"
+      "wait_time": 0,
+      "is_open": false,
+      "last_updated": "2026-10-05T14:56:35.299Z"
     }
   ]
 }
